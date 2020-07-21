@@ -1680,7 +1680,7 @@ JSRuntime *JS_NewRuntime2(const JSMallocFunctions *mf, void *opaque)
     if (init_shape_hash(rt))
         goto fail;
 
-    rt->stack_top = _alloca(0);
+    rt->stack_top = NULL;
     rt->stack_size = JS_DEFAULT_STACK_SIZE;
     rt->current_exception = JS_NULL;
 
