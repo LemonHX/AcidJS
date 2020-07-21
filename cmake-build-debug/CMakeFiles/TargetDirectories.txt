@@ -1,3 +1,0 @@
-C:/Users/Admin/Desktop/quickjs/quickjs-2020-07-05/cmake-build-debug/CMakeFiles/quickjs.dir
-C:/Users/Admin/Desktop/quickjs/quickjs-2020-07-05/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Admin/Desktop/quickjs/quickjs-2020-07-05/cmake-build-debug/CMakeFiles/rebuild_cache.dir

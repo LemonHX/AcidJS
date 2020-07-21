@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include "../quickjs.h"
+#include "../src/quickjs.h"
 #include <math.h>
 
 #define countof(x) (sizeof(x) / sizeof((x)[0]))

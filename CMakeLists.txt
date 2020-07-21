@@ -3,14 +3,13 @@ project(quickjs)
 
 set(quickjs_version 2020-07-05)
 set(quickjs_sources
-        quickjs.h
-        quickjs-libc.h
-        quickjs.c
-        libregexp.c
-        libunicode.c
-        libbf.c
-        cutils.c
-        quickjs-libc.c)
+        src/quickjs.c
+        src/utils/libregexp.c
+        src/utils/libunicode.c
+        src/utils/libbf.c
+        src/utils/cutils.c
+        src/libc/quickjs-libc.c
+        )
 
 add_library(${PROJECT_NAME}
         ${quickjs_sources}
@@ -21,5 +20,5 @@ target_compile_definitions(${PROJECT_NAME}
         CONFIG_VERSION="${quickjs_version}"
         )
 
-add_subdirectory(compiler)
-add_subdirectory(interpreter)
+add_subdirectory(src/compiler)
+add_subdirectory(src/interpreter)
