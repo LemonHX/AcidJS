@@ -854,7 +854,7 @@ typedef struct JSShapeProperty {
 #ifdef _MSC_VER
 #define JSSHAPE_HASH_OFFSET(ptr, offset) (((uint32_t *)(ptr))+(offset))
 #else
-#define JSSHAPE_HASH_OFFSET(ptr, offset) ((ptr)->prop_hash_end[offset])
+#define JSSHAPE_HASH_OFFSET(ptr, offset) (&(ptr)->prop_hash_end[offset])
 #endif
 
 struct JSShape {
