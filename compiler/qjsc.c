@@ -27,14 +27,22 @@
 #include <inttypes.h>
 #include <string.h>
 #include <assert.h>
+#ifdef _MSC_VER
+#define getpid _getpid
+extern int optind;
+extern char* optarg;
+extern int getopt(int nargc, char * const *nargv, const char *options);
+#else
 #include <unistd.h>
+#endif
 #include <errno.h>
 #if !defined(_WIN32)
+extern
 #include <sys/wait.h>
 #endif
 
-#include "cutils.h"
-#include "quickjs-libc.h"
+#include "../cutils.h"
+#include "../quickjs-libc.h"
 
 typedef struct {
     char *name;

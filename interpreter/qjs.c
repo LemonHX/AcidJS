@@ -28,7 +28,11 @@
 #include <inttypes.h>
 #include <string.h>
 #include <assert.h>
+#ifdef _MSC_VER
+//#include "../windows_getopt.h"
+#else
 #include <unistd.h>
+#endif
 #include <errno.h>
 #include <fcntl.h>
 #include <time.h>
@@ -38,11 +42,11 @@
 #include <malloc.h>
 #endif
 
-#include "cutils.h"
-#include "quickjs-libc.h"
+#include "../cutils.h"
+#include "../quickjs-libc.h"
 
-extern const uint8_t qjsc_repl[];
-extern const uint32_t qjsc_repl_size;
+//extern const uint8_t qjsc_repl[];
+//extern const uint32_t qjsc_repl_size;
 #ifdef CONFIG_BIGNUM
 extern const uint8_t qjsc_qjscalc[];
 extern const uint32_t qjsc_qjscalc_size;
@@ -134,7 +138,7 @@ static inline size_t js_trace_malloc_usable_size(void *ptr)
 #endif
 }
 
-static void __attribute__((format(printf, 2, 3)))
+static void __js_printf_like(2, 3)
     js_trace_malloc_printf(JSMallocState *s, const char *fmt, ...)
 {
     va_list ap;
@@ -503,9 +507,9 @@ int main(int argc, char **argv)
             if (eval_file(ctx, filename, module))
                 goto fail;
         }
-        if (interactive) {
-            js_std_eval_binary(ctx, qjsc_repl, qjsc_repl_size, 0);
-        }
+//        if (interactive) {
+//            js_std_eval_binary(ctx, qjsc_repl, qjsc_repl_size, 0);
+//        }
         js_std_loop(ctx);
     }
     

@@ -166,7 +166,11 @@ int dbuf_putstr(DynBuf *s, const char *str)
     return dbuf_put(s, (const uint8_t *)str, strlen(str));
 }
 
-int __attribute__((format(printf, 2, 3))) dbuf_printf(DynBuf *s,
+int
+#ifndef _MSC_VER
+__attribute__((format(printf, 2, 3)))
+#endif
+dbuf_printf(DynBuf *s,
                                                       const char *fmt, ...)
 {
     va_list ap;
@@ -257,6 +261,20 @@ int unicode_from_utf8(const uint8_t *p, int max_len, const uint8_t **pp)
         *pp = p;
         return c;
     }
+#ifdef _MSC_VER
+    if (c >= 0xc0 && c <= 0xdf)
+        l = 1;
+    else if (c >= 0xe0 && c <= 0xef)
+        l = 2;
+    else if (c >= 0xf0 && c <= 0xf7)
+        l = 3;
+    else if (c >= 0xf8 && c <= 0xfb)
+        l = 4;
+    else if (c >= 0xfc && c <= 0xfd)
+        l = 5;
+    else
+        return -1;
+#else
     switch(c) {
     case 0xc0 ... 0xdf:
         l = 1;
@@ -276,6 +294,7 @@ int unicode_from_utf8(const uint8_t *p, int max_len, const uint8_t **pp)
     default:
         return -1;
     }
+#endif
     /* check that we have enough characters */
     if (l > (max_len - 1))
         return -1;

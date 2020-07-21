@@ -28,23 +28,70 @@
 #include <inttypes.h>
 #include <string.h>
 #include <assert.h>
-#include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <sys/time.h>
 #include <time.h>
 #include <signal.h>
 #include <limits.h>
 #include <sys/stat.h>
-#include <dirent.h>
+
 #if defined(_WIN32)
+#include <stdlib.h>
+#include <io.h>
+#define popen _popen
+#define pclose _pclose
+#include "windows_getopt.h"
+#include <process.h> /* for getpid() and the exec..() family */
+#include <direct.h> /* for _getcwd() and _chdir() */
+
+#define srandom srand
+#define random rand
+
+/* Values for the second argument to access.
+   These may be OR'd together.  */
+#define R_OK    4       /* Test for read permission.  */
+#define W_OK    2       /* Test for write permission.  */
+#define X_OK    R_OK    /* execute permission - unsupported in Windows,
+                           use R_OK instead. */
+#define F_OK    0       /* Test for existence.  */
+
+#define access _access
+#define dup2 _dup2
+#define execve _execve
+#define ftruncate _chsize
+#define unlink _unlink
+#define fileno _fileno
+#define getcwd _getcwd
+#define chdir _chdir
+#define isatty _isatty
+#define lseek _lseek
+/* read, write, and close are NOT being #defined here,
+ * because while there are file handle specific versions for Windows,
+ * they probably don't work for sockets.
+ * You need to look at your app and consider whether
+ * to call e.g. closesocket().
+ */
+
+#define ssize_t int
+
+#define STDIN_FILENO 0
+#define STDOUT_FILENO 1
+#define STDERR_FILENO 2
+
+#include "windows_dirent.h"
 #include <windows.h>
 #include <conio.h>
-#include <utime.h>
+#ifndef PATH_MAX
+#define PATH_MAX MAX_PATH
+#endif
+#include <sys/utime.h>
 #else
+#include <unistd.h>
+#include <dirent.h>
 #include <dlfcn.h>
 #include <termios.h>
 #include <sys/ioctl.h>
+#include <sys/time.h>
 #include <sys/wait.h>
 
 #if defined(__APPLE__)
