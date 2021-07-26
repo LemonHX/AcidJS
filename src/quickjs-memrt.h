@@ -1,7 +1,3 @@
-//
-// Created by Admin on 2020/7/21.
-//
-
 #ifndef QUICKJS_QUICKJS_MEMRT_H
 #define QUICKJS_QUICKJS_MEMRT_H
 

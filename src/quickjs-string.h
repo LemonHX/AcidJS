@@ -1,7 +1,3 @@
-//
-// Created by Admin on 2020/7/21.
-//
-
 #ifndef QUICKJS_QUICKJS_STRING_H
 #define QUICKJS_QUICKJS_STRING_H
 static JSValue js_new_string8(JSContext *ctx, const uint8_t *buf, int len)

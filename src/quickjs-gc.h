@@ -1,7 +1,3 @@
-//
-// Created by Admin on 2020/7/21.
-//
-
 #ifndef QUICKJS_QUICKJS_GC_H
 #define QUICKJS_QUICKJS_GC_H
 static void add_gc_object(JSRuntime *rt, JSGCObjectHeader *h,
