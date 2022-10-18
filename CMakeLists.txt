@@ -20,5 +20,7 @@ target_compile_definitions(${PROJECT_NAME}
         CONFIG_VERSION="${quickjs_version}"
         )
 
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/src)
+
 add_subdirectory(src/compiler)
 add_subdirectory(src/interpreter)
